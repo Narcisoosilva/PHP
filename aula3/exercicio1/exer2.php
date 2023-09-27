@@ -1,29 +1,29 @@
 <?php
 
 
-echo ("========= (Menu) ========= ");
-echo ("Escolha uma das opções abaixo:");
-echo ("1 - Cadastrar Aluno.");
-echo ("2 - Alterar Aluno.");
-echo ("3 - Excluir Aluno.");
-echo ("4 - Mostrar todos os Alunos.");
-echo ("5 - Sair");
+echo ("========= (Menu) ========= \n");
+echo ("Escolha uma das opções abaixo:\n");
+echo ("1 - Cadastrar Aluno.\n");
+echo ("2 - Alterar Aluno.\n");
+echo ("3 - Excluir Aluno.\n");
+echo ("4 - Mostrar todos os Alunos.\n");
+echo ("5 - Sair\n");
  
 $resultado = fgets(STDIN);
 
 switch ($resultado) {
     case 1:
-        echo  "Aluno Cadastrado";
+        echo  "Aluno Cadastrado\n";
         break;
     case 2:
-        echo  "Alterar Aluno";
+        echo  "Alterar Aluno\n";
         break;
     case 3:
-        echo  "Excluir Aluno";
+        echo  "Excluir Aluno\n";
         break;    
     case 4:
-        echo  "Mostrar todos os Alunos";
+        echo  "Mostrar todos os Alunos\n";
         break;
     default:
-    echo  "Saindo, ate logo";
+    echo  "Saindo, ate logo\n";
 }

@@ -3,6 +3,8 @@ $opcao = 0;
 
 
 do {
+    system('clear');
+
     echo ("========= (Menu) ========= \n");
     echo ("Escolha uma das opções abaixo:\n");
     echo ("1 - Cadastrar Aluno.\n");
@@ -13,6 +15,7 @@ do {
     
     $resultado = fgets(STDIN);
 
+    system('clear');
     switch ($resultado) {
         case 1:
             echo  "Aluno Cadastrado\n";
@@ -26,10 +29,17 @@ do {
         case 4:
             echo  "Mostrar todos os Alunos\n";
             break;
-       
+        case 5:
+            echo "Deligando o sistema. ";
+            break;
         default:
-        echo  "escolha uma opção valida\n";
+            echo  "escolha uma opção valida\n";
+            break;
     }
+
+    sleep(5);
+
+    system('clear');
 
     if($resultado == 5) break;
 } while (true);

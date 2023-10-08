@@ -1,119 +1,43 @@
 <?php
-function mensagemComEsperaVermelho($mensagem){
-    limpaTela();
-    echo vermelho($mensagem . "\n");
-    espera(3);
-}
+require 'core/modelos/produto.php';
+require 'tela/cores.php';
+require 'tela/display.php';
+require 'core/tela/mensagens.php';
+require 'core/acoes_sobre_produto.php';
+require 'core/tela/menu.php';
 
-function continuar(){
-    return readline(amarelo("Deseja continuar ? s/n\n"));
-}
+// init();
 
-function mensagemComEspera($mensagem){
-    limpaTela();
-    echo verde($mensagem . "\n");
-    espera(3);
-}
+use Core\Modelos\Produto;
 
-function espera($segundos){
-    sleep($segundos);
-}
+$maca = new Produto("Maça", "Maça da turma da monica", 10);
+$maca->adicionar();
 
-function limpaTela() {
-    // Detecta o sistema operacional
-    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-        // Windows
-        system('cls');
-    } else {
-        // Linux/Unix/Mac
-        system('clear');
-    }
-}
+$melao = new Produto();
+$melao->nome = "Melão";
+$melao->descricao = "Da galera";
+$melao->quantidade = 40;
 
-function vermelho($texto){
-    return "\033[31m{$texto}\033[0m";
-}
+$banana = new Produto();
+$banana->nome = "Banana";
+$banana->descricao = "nanica";
+$banana->quantidade = 40;
 
-function verde($texto){
-    return "\033[32m{$texto}\033[0m";
-}
+$melao->adicionar();
+$banana->adicionar();
 
-function amarelo($texto){
-    return "\033[33m{$texto}\033[0m";
-}
+$coco = new Produto();
+$coco->codigo = 1000;
+$coco->nome = "Coco";
+$coco->descricao = "Legal";
+$coco->quantidade = 40;
+$coco->adicionar();
 
-function azul($texto){
-    return "\033[34m{$texto}\033[0m";
-}
+$produtos = Produto::lista();
 
-function adicionarProduto(&$estoque) {
-    limpaTela();
-    $codigo = readline(vermelho("Código do produto: "));
-    $nome = readline(verde("Nome do produto: "));
-    $descricao = readline(amarelo("Descrição do produto: "));
-    $quantidade = readline(azul("Quantidade em estoque: "));
-    $estoque[] = ['codigo' => $codigo, 'nome' => $nome, 'descricao' => $descricao, 'quantidade' => $quantidade];
-    mensagemComEspera("Produto adicionado com sucesso!\n");
-}
-
-function realizarSaida(&$estoque) {
-    limpaTela();
-    $codigo = readline("Código do produto para saída: ");
-    $quantidadeSaida = readline("Quantidade a ser retirada: ");
-    foreach ($estoque as &$produto) {
-        if ($produto['codigo'] == $codigo) {
-            if ($produto['quantidade'] >= $quantidadeSaida) {
-                $produto['quantidade'] -= $quantidadeSaida;
-                mensagemComEspera("Saída realizada com sucesso.");
-                return;
-            } else {
-                mensagemComEsperaVermelho("Estoque insuficiente.");
-
-                $opcao = continuar();
-                if($opcao == "s") realizarSaida($estoque);
-
-                return;
-            }
-        }
-    }
-    mensagemComEsperaVermelho("Produto não encontrado!\n");
-    $opcao = continuar();
-    if($opcao == "s") realizarSaida($estoque);
-}
-
-function listarProdutos(&$estoque) {
-    limpaTela();
-    echo verde("Código | Nome               | Descrição            | Estoque\n");
-    foreach ($estoque as $produto) {
-        echo str_pad($produto['codigo'], 6) . ' | ' . str_pad($produto['nome'], 18) . ' | ' . str_pad($produto['descricao'], 20) . ' | ' . $produto['quantidade'] . "\n";
-    }
-    echo "Digite enter para sair";
-    readline();
-}
-
-$estoque = [];
-while (true) {
-    limpaTela();
-    echo "Menu:\n";
-    echo verde("1. Adicionar produto\n");
-    echo amarelo("2. Realizar saída do estoque\n");
-    echo azul("3. Listar produtos\n");
-    echo vermelho("4. Sair\n");
-    $opcao = readline("Escolha uma opção: ");
-
-    switch ($opcao) {
-        case 1:
-            adicionarProduto($estoque);
-            break;
-        case 2:
-            realizarSaida($estoque);
-            break;
-        case 3:
-            listarProdutos($estoque);
-            break;
-        case 4:
-            exit(0);
-        default:
-            echo "Opção inválida.\n";
-    }
+foreach($produtos as $produto){
+    echo str_repeat("=", 40) . "\n";
+    echo "Codigo: {$produto->codigo}\n";
+    echo "Nome: {$produto->nome}\n";
+    echo "\n";
 }
